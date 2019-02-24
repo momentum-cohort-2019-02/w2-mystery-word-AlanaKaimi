@@ -59,9 +59,9 @@ def play_game(word):
     # updates the # of guesses left
             guesses_left -= 1
 
-###! Still declares win... very affirmative robot <3
+### Still declares win... very affirmative robot <3 *fixed 
 # response if all gueses are used
-    if guesses_left < 0:
+    if guesses_left < 1:
         print ("You loose. the word was: " + str(word))
 # response if we win!
     else:
