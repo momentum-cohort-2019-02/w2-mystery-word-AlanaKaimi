@@ -8,14 +8,15 @@
 ###* WORKS: Displays num of guesses left
 ###* WORKS: Deprecates num of guesses when user  
     #*      guesses incorrectly
-###* Confirms Win or Loose
+###* WORKS: Make sure game doesn't break over                  letter casing
+###* WORKS: Confirms Win or Loose
 
 ###! TODO: 
 
 ###TODO: Asks user for difficulty
     # difficulty = input("Choose difficulty (easy, medium, hard): ")
 ###TODO: Get game to generate the word based off             difficulty
-###TODO: Make sure game doesn't break over                  letter casing
+
 
 # Imports the random library, giving access to it's modules and allowing us the .random features
 import random
@@ -26,7 +27,7 @@ print("""Welcome to Mystery Word!""")
 # open file and choose a random word 
 def get_random_word(word):
     """Opens a file, chooses a random word, and returns it"""
-    word = random.choice(open('words.txt').read().split()).strip()
+    word = random.choice(open('words.txt').read().split()).strip().casefold()
 
      ### returns the chosen word
     return word
@@ -60,15 +61,15 @@ def play_game(word):
 ### Game loop
 
     while guesses_left > 0 and not blanks == word:
-        print (f"So far you've guessed {guesses}")
         print(blanks)
-        print (str(guesses_left))
-    # get's user's guess
-        guess = input("Guess a letter: ")
+        print (f"You have {guesses_left} guesses left.")
+        print (f"So far you've guessed {guesses}")
+    # get's user's guess 
+        guess = input("Guess a letter: ").casefold()
     # response if guess is invalid
         if len(guess) != 1:
             print ("try again")
-            
+    
     # response if guess is correct
         elif guess in word:
             print ("It's in the word!")
