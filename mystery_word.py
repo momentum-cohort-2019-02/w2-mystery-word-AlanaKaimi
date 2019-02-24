@@ -1,126 +1,85 @@
+# Imports the random library, giving access to it's modules and allowing us the .random features
 import random
-###TODO Most of it! Sorry for the mess!
+# welcomes user to game
+print("""Welcome to Mystery Word!""")
 
-# print("""Welcome to Mystery Word!
-#     Choose your level of difficulty:
-#     Easy: 4-6 characters
-#     Normal: 6-8 characters
-#     Hard: 8+ characters""")
-# ### * WORKS!
-
-# Let user choose dificulty level of easy: 4-6 char normal: 6-8 char, and Hard 8+ char
-    #  Read words from a file words.txt
-    # choose only words of a certain length
-        # filter a list by string size
-    # get random entry from list
-        #random module? 
-# ### * WORKS!
-# diff_choice = input("Difficulty level: ")
-# ### * WORKS!
-
-# ### * WORKS!
-# def choose_difficulty(diff_choice): 
-# # .casefold() allows user to input answer in any case and it will be accepted     
-#     diff_choice = diff_choice.casefold()
-# # responds to user's choice input
-#     if diff_choice == ("easy"):
-#         print(f"{diff_choice} 4-6 letters")
-#     elif diff_choice == ("normal"): 
-#         print(diff_choice + " 6-8 letters")
-#     elif diff_choice == ("hard"):
-#         print(diff_choice + " 8+ letters")
-   
-# ### * WORKS!
-
-# choose_difficulty(diff_choice)
-
-
-###* WORKS 
+###* WORKS --->
 # open file and choose a random word 
 def get_random_word(word):
+    """Opens a file, chooses a random word, and returns it"""
     word = random.choice(open('words.txt').read().split()).strip()
+
+     ### returns the chosen word
     return word
+###* <--- WORKS
 
-print(get_random_word('word'))
-###* WORKS
+###* WORKS --->
+def display_word(word, cur_blank, user_guess):
+    """Generates the word, including correct guesses and blanks"""
+    result = ""
+  
+  # Adds guess to string if guess is correctly
+    for i in range(len(word)):
+        if word[i] == user_guess:
+            result = result + user_guess     
 
-###TODO
-def display_word(secret_word):
-    secret_word = get_random_word('word')
-    dashes = "_" * len(secret_word)
+    # Add the blank at index i to result if it doesn't match the guess  
+        else:
+            result = result + cur_blank[i]
+  ### Returns the result    
+    return result
+###* <--- WORKS
+
+###* WORKS --->
+def play_game(word):
+    word = get_random_word('')
+    blanks = "_" * len(word)
     guesses_left = 8
-    
+    print(word) ### Printing for now so I can see it
 
-    # while guesses_left > -1 and not dashes == secret_word:
-    print (len(secret_word))
-    print(dashes)
-    print (str(guesses_left))
-print(display_word('secret_word'))
+### Game loop
 
 
+    while guesses_left > 0 and not blanks == word:
+        print(blanks)
+        print (str(guesses_left))
+    # get's user's guess
+        guess = input("Guess a letter: ")
+    # response if guess is invalid
+        if len(guess) != 1:
+            print ("try again")
+    # response if guess is correct
+        elif guess in word:
+            print ("It's in the word!")
+    # updates the display word
+            blanks = display_word(word, blanks, guess)
+    # response if guess is wrong
+        else:
+            print ("not in the word!")
+    # updates the # of guesses left
+            guesses_left -= 1
 
-# --based off of difficulty level (# of characters)
+###! Still declares win... very affirmative robot <3
+# response if all gueses are used
+    if guesses_left < 0:
+        print ("You loose. the word was: " + str(word))
+# response if we win!
+    else:
+        print("You win!")
+###* <--- WORKS
 
 
+###TODO 
 
-# def choose_word(filename):
-#     """Read in `file` and choose word based on difficulty level"""
-    
-#     with open("words.txt") as file:
-#         text = file.read
+### Asks user for difficulty but it doesn't really connect it to the game :/
+    # difficulty = input("Choose difficulty (easy, medium, hard): ")
 
-#         text = normalize_text(text)
-#         words = []
+### Get game to generate the word based off difficulty
 
-#     for word in text.split(" "):
-#         words.append(word)
-
-#     for word in sorted(words, key=words.get):
-#         easy_words = 
-#         medium_words =
-#         hard_words =
-
-# Find the length of word
-
-# def word_length(word_list):
-#     """Given a list, go through and find the length of a word"""
-#     word_count = {}
-#     for word in list_list:
-#         if word not in word_count:
-#         word_count[word] = 1
-
-#         else:
-#             word_count[word] += 1
-        
-#         return word_count
-        
-# call function
-### * WORKS!
-# choose_difficulty (diff_choice)
-### * WORKS!
-# choose_word (filename)
+### Get game to print out letters guessed
 
 
 
-    
-
-# Print how many chars the word contains
-
-# get 1 letter from user per round
-    # casefold it
-    # check that it's one letter
-    # if more than 1 print invalid
-
-# Display partially guessed words
-
-
-
-
-
-
-
-
-# print a word guesses like B_ _ BA_D
-
-
-
+###* WORKS --->
+play_game('word')
+###* <--- WORKS
