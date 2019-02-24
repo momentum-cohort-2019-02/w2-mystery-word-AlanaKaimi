@@ -1,3 +1,20 @@
+
+###* WORKS: Generate a Random word from a file 
+###* WORKS: Asks user for a guess
+###* WORKS: Display '_' and correct user guesses
+###* WORKS: Let's user know if guess is wrong or                right
+###* WORKS: Displays num of guesses left
+###* WORKS: Deprecates num of guesses when user                 guesses incorrectly
+###* Confirms Win or Loose
+
+###! TODO: 
+
+###TODO: Asks user for difficulty
+    # difficulty = input("Choose difficulty (easy, medium, hard): ")
+###TODO: Get game to generate the word based off            difficulty
+###TODO: Get game to stpre and print out letters            guessed
+###TODO: Make sure game doesn't break over                  letter casing
+
 # Imports the random library, giving access to it's modules and allowing us the .random features
 import random
 # welcomes user to game
@@ -62,23 +79,11 @@ def play_game(word):
 ### Still declares win... very affirmative robot <3 *fixed 
 # response if all gueses are used
     if guesses_left < 1:
-        print ("You loose. the word was: " + str(word))
+        print ("You loose. The word was: " + str(word))
 # response if we win!
     else:
-        print("You win!")
+        print("You win! The word was: " + str(word))
 ###* <--- WORKS
-
-
-###TODO 
-
-### Asks user for difficulty but it doesn't really connect it to the game :/
-    # difficulty = input("Choose difficulty (easy, medium, hard): ")
-
-### Get game to generate the word based off difficulty
-
-### Get game to print out letters guessed
-
-
 
 ###* WORKS --->
 play_game('word')
