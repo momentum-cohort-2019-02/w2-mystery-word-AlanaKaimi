@@ -4,19 +4,19 @@
 ###* WORKS: Display '_' and correct user guesses
 ###* WORKS: Let's user know if guess is wrong or
     #*      right
-###* WORKS: Get game to store and print out          #*      letters guessed
+###* WORKS: Get game to store and print out   
+    #*      letters guessed
 ###* WORKS: Displays num of guesses left
 ###* WORKS: Deprecates num of guesses when user  
     #*      guesses incorrectly
-###* WORKS: Make sure game doesn't break over                  letter casing
+###* WORKS: Make sure game doesn't break over
+    #*      letter casing
 ###* WORKS: Confirms Win or Loose
 
 ###! TODO: 
-
 ###TODO: Asks user for difficulty
     # difficulty = input("Choose difficulty (easy, medium, hard): ")
 ###TODO: Get game to generate the word based off             difficulty
-
 
 # Imports the random library, giving access to it's modules and allowing us the .random features
 import random
@@ -29,37 +29,36 @@ def get_random_word(word):
     """Opens a file, chooses a random word, and returns it"""
     word = random.choice(open('words.txt').read().split()).strip().casefold()
 
-     ### returns the chosen word
+    ### returns the chosen word
     return word
 ###* <--- WORKS
 
 ###* WORKS --->
-def display_word(word, cur_blank, user_guess):
+def display_word(word, blanks, guess):
     """Generates the word, including correct guesses and blanks"""
     result = ""
   
   # Adds guess to string if guess is correctly
     for i in range(len(word)):
-        if word[i] == user_guess:
-            result = result + user_guess     
-
+        if word[i] == guess:
+            result = result + guess
     # Add the blank at index i to result if it doesn't match the guess  
         else:
-            result = result + cur_blank[i]
-  ### Returns the result    
+            result = result + blanks[i]
+  # Returns the result    
     return result
 ###* <--- WORKS
 
 ###* WORKS --->
 def play_game(word):
+    """ Runs Game Loop, calling other functions for nec. tasks """
     word = get_random_word('')
     blanks = "_" * len(word)
     guesses_left = 8
     guesses = []
     print(word) ###! Printing for now so I can see it
 
-### Game loop
-
+###* Game loop --->
     while guesses_left > 0 and not blanks == word:
         print(blanks)
         print (f"You have {guesses_left} guesses left.")
@@ -72,12 +71,12 @@ def play_game(word):
     
     # response if guess is correct
         elif guess in word:
-            print ("It's in the word!")
+            print (f"'{guess}' is in the word!")
     # updates the display word
             blanks = display_word(word, blanks, guess)
     # response if guess is wrong
         else:
-            print ("not in the word!")
+            print (f"'{guess}' is not in the word!")
     # stores and prints out incorrect guesses
             guesses.append(guess)
     # updates the # of guesses left
@@ -93,5 +92,6 @@ def play_game(word):
 ###* <--- WORKS
 
 ###* WORKS --->
+# Calls the function that sets the game into play!
 play_game('word')
 ###* <--- WORKS
