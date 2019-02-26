@@ -1,6 +1,6 @@
 
 ###* WORKS: Generate a Random word from a file 
-###* WORKS: Asks user for a guess
+###* WORKS: Asks user for a guess & difficulty
 ###* WORKS: Display '_' and correct user guesses
 ###* WORKS: Let's user know if guess is wrong or
     #*      right
@@ -14,28 +14,60 @@
 ###* WORKS: Confirms Win or Loose
 
 ###! TODO: 
-###TODO: Asks user for difficulty
-    # difficulty = input("Choose difficulty (easy, medium, hard): ")
-###TODO: Get game to generate the word based off             difficulty
+
+###TODO: Get game to generate the word based off difficulty
+
 
 # Imports the random library, giving access to it's modules and allowing us the .random features
 import random
-# welcomes user to game
-print("""Welcome to Mystery Word!""")
 
 ###* WORKS --->
-# open file and choose a random word 
-def get_random_word(word):
-    """Opens a file, chooses a random word, and returns it"""
-    word = random.choice(open('words.txt').read().split()).strip().casefold()
+def get_user_difficulty(difficulty):
+    difficulty = None
+    while difficulty not in ['easy', 'normal', 'hard']:
+        difficulty = input("Choose your level: [easy, normal, hard]: ")
+    print(f"You chose {difficulty}. Let's get started!")
+###* <--- WORKS
 
+###! TODO: Get game to generate the word based off difficulty
+
+###!  Testing --->
+
+def filter_word_list_by_difficulty(word_list, difficulty):
+    """
+    Given a list of words and difficulty level
+    filter that list
+    """
+    filtered_word_list = []
+    for word in word_list:
+        if difficulty == 'easy' and 4 <= len(word) <= 6:
+            filtered_word_list.append(word)
+        elif difficulty == 'normal' and 6 <= len(word) <= 8:
+            filtered_word_list.append(word)
+        elif difficulty == 'hard' and len(word) >= 8:
+            filtered_word_list.append(word)
+        
+        return filtered_word_list
+
+###! <--- Testing ^
+
+###* WORKS --->
+# open file and get a list 
+def get_word_list(filename):
+    """
+    Opens a file, chooses a random word, and returns it
+    """
+    with open(filename) as file:
+        word_list =[line.strip().lower() for line in file]
     ### returns the chosen word
-    return word
+    return word_list
 ###* <--- WORKS
 
 ###* WORKS --->
 def display_word(word, blanks, guess):
-    """Generates the word, including correct guesses and blanks"""
+    """
+    Generates the word, including correct guesses and blanks
+    """
     result = ""
   
   # Adds guess to string if guess is correctly
@@ -51,12 +83,19 @@ def display_word(word, blanks, guess):
 
 ###* WORKS --->
 def play_game(word):
-    """ Runs Game Loop, calling other functions for nec. tasks """
-    word = get_random_word('')
+    """
+    Runs Game Loop, calling other functions for nec. tasks
+    """
+    # welcomes user to game
+    print("Welcome to Mystery Word!")
+    difficulty = get_user_difficulty('')
+    word_list = get_word_list('words.txt')
+    word_list = filter_word_list_by_difficulty(word_list, difficulty)
+    word = random.choice('word_list')
     blanks = "_" * len(word)
     guesses_left = 8
     guesses = []
-    print(word) ###! Printing for now so I can see it
+    print(word) ###! REMOVE: Printing for now so I can see it
 
 ###* Game loop --->
     while guesses_left > 0 and not blanks == word:
@@ -80,7 +119,7 @@ def play_game(word):
     # stores and prints out incorrect guesses
             guesses.append(guess)
     # updates the # of guesses left
-            guesses_left -= 1
+            guesses_left == 0
 
 ### Still declares win... very affirmative robot <3 *fixed 
 # response if all gueses are used
@@ -92,6 +131,8 @@ def play_game(word):
 ###* <--- WORKS
 
 ###* WORKS --->
+# Only runs function when running this file, not on import
+if __name__ == "__main__":
 # Calls the function that sets the game into play!
-play_game('word')
+    play_game('word')
 ###* <--- WORKS
